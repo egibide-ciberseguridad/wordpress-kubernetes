@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.28.0 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: db
   name: db
@@ -15,5 +14,3 @@ spec:
       targetPort: 3306
   selector:
     io.kompose.service: db
-status:
-  loadBalancer: {}

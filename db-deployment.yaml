@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert
     kompose.version: 1.28.0 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: db
   name: db
@@ -20,7 +19,6 @@ spec:
       annotations:
         kompose.cmd: kompose convert
         kompose.version: 1.28.0 (HEAD)
-      creationTimestamp: null
       labels:
         io.kompose.network/wordpress-kubernetes-wordpress: "true"
         io.kompose.service: db
@@ -48,4 +46,3 @@ spec:
         - name: db
           persistentVolumeClaim:
             claimName: db
-status: {}
