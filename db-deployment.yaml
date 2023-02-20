@@ -20,7 +20,6 @@ spec:
         kompose.cmd: kompose convert
         kompose.version: 1.28.0 (HEAD)
       labels:
-        io.kompose.network/wordpress-kubernetes-wordpress: "true"
         io.kompose.service: db
     spec:
       containers:
