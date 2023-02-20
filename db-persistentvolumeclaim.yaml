@@ -5,6 +5,7 @@ metadata:
     io.kompose.service: db
   name: db
 spec:
+  storageClassName: datos
   accessModes:
     - ReadWriteOnce
   resources:
