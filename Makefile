@@ -12,7 +12,6 @@ help: _header
 	@echo Opciones:
 	@echo ----------------------------------
 	@echo start / stop / restart
-	@echo build
 	@echo workspace
 	@echo stats
 	@echo clean
@@ -25,25 +24,19 @@ _header:
 
 _urls: _header
 	${info }
-	@echo ----------------------------------
-	@echo [WordPress] https://${WORDPRESS_HOSTNAME}
-	@echo ----------------------------------
+	@echo ----------------------------
+	@echo [WordPress] http://localhost
+	@echo ----------------------------
 
 _start-command:
 	@docker compose up -d --remove-orphans
 
-_get_local_ip:
-	@docker compose exec wordpress get_local_ip.sh ${WORDPRESS_HOSTNAME}
-
-start: _start-command _get_local_ip _urls
+start: _start-command _urls
 
 stop:
 	@docker compose stop
 
 restart: stop start
-
-build:
-	@docker compose build
 
 workspace:
 	@docker compose exec wordpress /bin/bash
