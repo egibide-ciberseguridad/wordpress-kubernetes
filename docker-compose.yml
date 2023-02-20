@@ -1,0 +1,62 @@
+version: "3.5"
+
+services:
+
+  https-portal:
+    image: steveltn/https-portal:1
+    environment:
+      CLIENT_MAX_BODY_SIZE: 1024M
+      DOMAINS: >
+        ${WORDPRESS_HOSTNAME} -> http://wordpress:80,
+      STAGE: local
+    volumes:
+      - https-portal_certs:/var/lib/https-portal
+      - https-portal_logs:/var/log/nginx
+    networks:
+      - wordpress
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - wordpress
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - wordpress
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    expose:
+      - 3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - wordpress
+
+networks:
+  wordpress:
+
+volumes:
+  https-portal_certs:
+  https-portal_logs:
+  wordpress:
+  db:
