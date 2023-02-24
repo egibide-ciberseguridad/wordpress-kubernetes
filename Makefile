@@ -10,13 +10,14 @@
 help: _header
 	${info }
 	@echo Opciones:
-	@echo ----------------------------------
+	@echo ------------------------------------
 	@echo start / stop / restart
 	@echo workspace
 	@echo stats
 	@echo clean
-	@echo kubernetes
-	@echo ----------------------------------
+	@echo ------------------------------------
+	@echo kubernetes-apply / kubernetes-delete
+	@echo ------------------------------------
 
 _header:
 	@echo ---------
@@ -48,10 +49,16 @@ stats:
 clean:
 	@docker compose down -v --remove-orphans
 
-kubernetes:
+kubernetes-apply:
 	@kubectl apply -f volumenes.yaml
 	@kubectl apply -f db-persistentvolumeclaim.yaml
 	@kubectl apply -f db-deployment.yaml
 	@kubectl apply -f db-service.yaml
 	@kubectl apply -f wordpress-persistentvolumeclaim.yaml -f wordpress-deployment.yaml -f wordpress-service.yaml
 	@kubectl apply -f ingress.yaml
+
+kubernetes-delete:
+	@kubectl delete -f ingress.yaml
+	@kubectl delete -f db-persistentvolumeclaim.yaml -f db-deployment.yaml -f db-service.yaml
+	@kubectl delete -f wordpress-persistentvolumeclaim.yaml -f wordpress-deployment.yaml -f wordpress-service.yaml
+	@kubectl delete -f volumenes.yaml
